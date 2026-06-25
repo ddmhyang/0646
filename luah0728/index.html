@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LUAH PORTFOLIO</title>
+        <link rel="icon" href="assets/images/logo.png">
+        <style>
+            /*
+    @font-face {
+      font-family: 'Freesentation';
+      src: url('assets/fonts/Freesentation-1Thin.ttf') format('truetype');
+      font-weight: 100;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Freesentation';
+      src: url('assets/fonts/Freesentation-3Light.ttf') format('truetype');
+      font-weight: 300;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Freesentation';
+      src: url('assets/fonts/Freesentation-3Light.ttf') format('truetype');
+      font-weight: 500;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Freesentation';
+      src: url('assets/fonts/Freesentation-7Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Freesentation';
+      src: url('assets/fonts/Freesentation-9Black.ttf') format('truetype');
+      font-weight: 900;
+      font-style: normal;
+    }*/
+            @font-face {
+                font-family: 'Luckiest Guy';
+                src: url("assets/fonts/LuckiestGuy-Regular.ttf") format('truetype');
+                font-weight: 900;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'Love Ya Like A Sister';
+                src: url("assets/fonts/LoveYaLikeASister-Regular.ttf") format('truetype');
+                font-weight: 900;
+                font-style: normal;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body,
+            html {
+                width: 100dvw;
+                height: 100dvh;
+                overflow: hidden;
+                background: #fafafa;
+                font-family: 'Freesentation', 'Malgun Gothic', sans-serif;
+            }
+
+            .container {
+                overflow: hidden;
+                width: 1600px;
+                height: 900px;
+                background-color: #fafafa;
+                background: url("assets/images/background.png") repeat center center;
+                position: absolute;
+                top: 0;
+                left: 0;
+                cursor: pointer;
+            }
+
+            
+            .background-deco{
+              width: 1600px;
+              height: 900px;
+              filter: blur(2.5px);
+            }
+
+            .bd1 {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 221px;
+                height: 241px;
+                aspect-ratio: 221/241;
+                background: url("assets/images/deco1.png") no-repeat center center;
+            }
+
+            .bd2 {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 272px;
+                height: 257px;
+                aspect-ratio: 127/120;
+                background: url("assets/images/deco2.png") no-repeat center center;
+            }
+
+            .bd3 {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 257px;
+                height: 416px;
+                aspect-ratio: 118/191;
+                background: url("assets/images/deco3.png") no-repeat center center;
+            }
+
+            .bd4 {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 258px;
+                height: 268px;
+                aspect-ratio: 103/107;
+                background: url("assets/images/deco4.png") no-repeat center center;
+            }
+
+            .bd5 {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 788px;
+                height: 788px;
+                aspect-ratio: 1/1;
+                background: url("assets/images/deco5.png") no-repeat center center;
+            }
+
+            .bd6 {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 788px;
+                height: 788px;
+                aspect-ratio: 1/1;
+                background: url("assets/images/deco6.png") no-repeat center center;
+            }
+
+            .index_box {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 1000px;
+                height: 620px;
+                background: #fafafa;
+                box-shadow: 4px 4px 0 0 #FF89B8;
+            }
+
+            .index_logo {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: url("assets/images/logo.png") no-repeat center center;
+                background-size: contain;
+                width: 600px;
+                height: 368px;
+                aspect-ratio: 75/46;
+                filter: drop-shadow(0px 4px 0px #FF87BB);
+            }
+
+            @media (max-width: 900px) {
+              .container {
+                  width: 720px;
+                  height: 1280px;
+              }
+
+              .background-deco{
+                width: 720px;
+                height: 1280px;
+                filter: blur(2.5px);
+              }
+
+              .bd1{
+                width: 161px;
+                height: 175px;
+                aspect-ratio: 23/25;
+                background-size: contain;
+              }
+
+              .bd2{
+                width: 186px;
+                height: 302px;
+                aspect-ratio: 85/138;
+                background-size: contain;
+              }
+
+              .bd3{
+                width: 198px;
+                height: 187px;
+                aspect-ratio: 18/17;
+                background-size: contain;
+              }
+
+              .bd4{
+                width: 187px;
+                height: 195px;
+                aspect-ratio: 70/73;
+                background-size: contain;
+              }
+
+              .index_box{
+                width: 600px;
+                height: 1000px;
+              }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="layout">
+                <div class="background-deco">
+                    <div class="bd1"></div>
+                    <div class="bd2"></div>
+                    <div class="bd3"></div>
+                    <div class="bd4"></div>
+                    <div class="bd5"></div>
+                    <div class="bd6"></div>
+                    <div class="index_box"></div>
+                </div>
+                <a class="index_logo" href="/pages/" data-route=""></a>
+            </div>
+        </div>
+    </body>
+</html>
