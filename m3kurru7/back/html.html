@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Brain.exe Error Layout (Responsive & dvw/dvh)</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            :root {
+                --win-gray: #9C9C9C;
+                --win-dark-gray: #555555;
+                --win-light: #ffffff;
+                --win-black: #000000;
+                --win-gray-title-dark: #333333;
+                --win-gray-title-mid-dark: #666666;
+            }
+
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100dvh;
+                margin: 0;
+                font-family: 'MS Sans Serif', Tahoma, sans-serif;
+                box-sizing: border-box;
+                overflow: hidden;
+                position: relative;
+                -webkit-font-smoothing: none;
+                background: radial-gradient(circle at center, #2a2a2a 0%, #000000 80%);
+                box-shadow: 0 0 40px 40px rgba(0, 0, 0, 0.50) inset;
+            }
+
+            body::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-image: url("assets/images/background.png");
+                z-index: -2;
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                filter: grayscale(100%);
+            }
+
+            body::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-image: url("assets/images/overlay.jpg");
+                background-size: cover;
+                background-position: center;
+                z-index: 9999;
+                pointer-events: none;
+                mix-blend-mode: overlay;
+                opacity: 0.15;
+            }
+
+            @keyframes popupGlitchText {
+                0% { opacity: 0; visibility: hidden; }
+                0.5% { opacity: 1; visibility: visible; }
+                20% { opacity: 1; visibility: visible; }
+                20.5% { opacity: 0; visibility: hidden; }
+                100% { opacity: 0; visibility: hidden; }
+            }
+
+            .container {
+                position: relative;
+                width: 75dvw;
+                height: 80dvh;
+                max-width: 1200px;
+            }
+
+            .main_layout {
+                position: relative;
+                width: 100%;
+                height: 100%;
+            }
+
+            .sub_layout {
+                position: absolute;
+                bottom: 2dvh;
+                right: 1dvw;
+                z-index: 10;
+            }
+
+            .xp-window {
+                background-color: var(--win-gray);
+                border: 2px solid;
+                border-color: var(--win-gray) var(--win-dark-gray) var(--win-dark-gray) var(--win-gray);
+                box-shadow: 1px 1px 0 0 var(--win-black);
+                padding: 3px;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                border-radius: 0;
+            }
+
+            .xp-window::after {
+                content: " ";
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-image: linear-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+                background-size: 2px 2px;
+                z-index: 1;
+                pointer-events: none;
+            }
+
+            .xp-titlebar {
+                background: linear-gradient(90deg, var(--win-gray-title-dark), var(--win-gray-title-mid-dark));
+                padding: 4px 6px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                color: var(--win-light);
+                font-weight: bold;
+                font-size: 15px;
+                letter-spacing: 1px;
+                flex-shrink: 0;
+                height: auto;
+                min-height: 18px;
+                position: relative;
+                z-index: 2;
+            }
+
+            .xp-title {
+                color: var(--win-light);
+                text-shadow: none;
+                padding-left: 0;
+            }
+            .xp-controls {
+                display: flex;
+                gap: 2px;
+            }
+
+            .xp-control-btn {
+                width: 18px;
+                height: 16px;
+                background: var(--win-gray);
+                border: 1px solid;
+                border-color: var(--win-gray) var(--win-dark-gray) var(--win-dark-gray) var(--win-gray);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                box-shadow: none;
+                border-radius: 0;
+                padding: 0;
+            }
+
+            .xp-control-btn span {
+                color: var(--win-black);
+                font-family: 'MS Sans Serif', Tahoma, sans-serif;
+                font-size: 14px;
+                font-weight: 900;
+                line-height: 1;
+            }
+
+            .xp-control-btn.minimize span { transform: translateY(-4px); }
+            .xp-control-btn.maximize span { font-size: 15px; transform: translateY(-1px); }
+            .xp-control-btn.close span { font-size: 13px; }
+
+            .xp-control-btn:active {
+                border-color: var(--win-dark-gray) var(--win-gray) var(--win-gray) var(--win-dark-gray);
+                padding-top: 1px;
+                padding-left: 1px;
+            }
+
+            .xp-body {
+                background-color: var(--win-gray);
+                flex: 1;
+                border: 2px solid;
+                border-color: var(--win-dark-gray) var(--win-gray) var(--win-gray) var(--win-dark-gray);
+                margin: 4px 0 0;
+                color: var(--win-black);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                z-index: 2;
+            }
+
+            .wp1_date { position: absolute; left: 12px; top: 7px; font-family: "Freesentation"; font-weight: 300; font-size: 12px; color: #e30808; }
+            .wp1_profile { position: absolute; left: 12px; top: 28.5px; width: 73px; height: 73px; border: 1px solid #0a0a0a; display: flex; justify-content: center; align-items: center; background: transparent; }
+            .wp1_content { position: absolute; left: 98px; right: 12px; top: 28.5px; font-family: "Freesentation"; font-weight: 300; font-size: 12px; color: #e30808; word-break: break-all; }
+
+            .window-2 .xp-body { min-height: 0; justify-content: flex-start; align-items: stretch; padding: 0; }
+
+            .wp2_search { display: flex; align-items: center; justify-content: space-between; padding: 5px 10px; background: var(--win-gray); z-index: 2; }
+            .search-input { width: 90%; background: var(--win-gray); border: 2px solid; border-color: var(--win-dark-gray) var(--win-gray) var(--win-gray) var(--win-dark-gray); height: 20px; padding: 0 5px; outline: none; font-family: 'MS Sans Serif', Tahoma, sans-serif; color: var(--win-black); }
+            .search-btn { background: var(--win-gray); border: 2px solid; border-color: var(--win-gray) var(--win-dark-gray) var(--win-dark-gray) var(--win-gray); width: 24px; height: 24px; display: flex; justify-content: center; align-items: center; cursor: pointer; color: var(--win-black); outline: none; }
+            .search-btn:active { border-color: var(--win-dark-gray) var(--win-gray) var(--win-gray) var(--win-dark-gray); padding-top: 1px; padding-left: 1px; }
+
+            .wp2_road { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 30px; padding: 15px; z-index: 2; }
+            .wp2_road::-webkit-scrollbar { width: 0; height: 0; }
+            .road_item { display: flex; flex-direction: column; width: 100%; }
+            .road_img { width: 100%; aspect-ratio: 4 / 3; border: 1px solid var(--win-black); background: #111; }
+            .road_text { width: 100%; min-height: 40px; border: 1px solid var(--win-black); border-top: none; padding: 10px; box-sizing: border-box; font-family: "Freesentation", sans-serif; font-weight: 500; font-size: 12px; color: #e30808; background: var(--win-gray); }
+
+            .wp2_roadBar { display: flex; align-items: center; gap: 5px; padding: 5px; background: var(--win-gray); border-top: 2px solid; border-color: var(--win-gray) transparent transparent transparent; z-index: 2; }
+
+            .xp-btn-small { background: var(--win-gray); border: 2px solid; border-color: var(--win-gray) var(--win-dark-gray) var(--win-dark-gray) var(--win-gray); padding: 2px 8px; font-family: 'MS Sans Serif', Tahoma, sans-serif; font-size: 12px; color: var(--win-black); cursor: pointer; box-shadow: 1px 1px 0 var(--win-black); outline: none; }
+            .xp-btn-small:active { border-color: var(--win-dark-gray) var(--win-gray) var(--win-gray) var(--win-dark-gray); box-shadow: none; transform: translate(1px, 1px); }
+            .wp2_input { flex: 1; background: var(--win-gray); border: 2px solid; border-color: var(--win-dark-gray) var(--win-gray) var(--win-gray) var(--win-dark-gray); height: 20px; padding: 0 5px; outline: none; font-family: 'MS Sans Serif', Tahoma, sans-serif; color: var(--win-black); }
+
+            .window-3 .xp-body { min-height: 0; padding: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; box-sizing: border-box; width: 100%; justify-content: flex-start; align-items: flex-start; overflow-y: auto; }
+            .window-3 .xp-body::-webkit-scrollbar { width: 0; height: 0; }
+            .gallery_item { width: 100%; aspect-ratio: 1 / 1.25; background: #111; border: 1px solid var(--win-black); z-index: 2; box-sizing: border-box; }
+
+            /* 컨테이너 밖으로 뺀 글리치 텍스트 - 화면 중앙 고정 */
+            .glitch-text-overlay {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 99999; /* 모든 창보다 무조건 위에 뜨게 설정 */
+                color: yellow;
+                border: solid 1px #fafafa;
+                padding: 15px 40px 15px 48px;
+                background-color: rgba(0, 0, 0, 0.9);
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 32px;
+                font-weight: bold;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                white-space: nowrap;
+                pointer-events: none;
+                text-shadow: 0 0 8px rgba(255, 255, 0, 0.7);
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+                opacity: 0;
+                visibility: hidden;
+                animation: popupGlitchText 20s infinite linear;
+            }
+
+            /* Desktop (> 900px) */
+            .window-1 { position: absolute; top: 0; left: 5%; width: calc(45% - 20px); height: calc(25% - 20px); z-index: 5; }
+            .window-2 { position: absolute; top: 25%; left: 0; width: calc(45% - 20px); height: calc(75% - 20px); min-height: 0; z-index: 5; }
+            .window-3 { position: absolute; top: 3%; left: 40%; width: calc(55% - 20px); height: 88%; min-height: 0; z-index: 1; }
+            .window-4 { width: 22dvw; height: 20dvh; }
+
+            /* =========================================
+               🚨 반응형 구간 1: 화면 살짝 좁아질 때 (<= 1200px)
+            ========================================= */
+            @media (max-width: 1200px) {
+                /* 3번 창 내부 갤러리를 1열로 변경 */
+                .window-3 .xp-body {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            /* =========================================
+               🚨 반응형 구간 2: Mobile & Tablet (<= 900px)
+            ========================================= */
+            @media (max-width: 900px) {
+                .container { width: 85dvw; height: 85dvh; }
+                .main_layout { display: flex; flex-direction: column; gap: 50px; }
+                
+                .window-1 { position: relative; top: auto; left: auto; width: 100%; height: auto; flex: 0.2; }
+                .window-2 { position: relative; top: auto; left: auto; width: 100%; height: auto; flex: 0.8; }
+
+                /* 기본 숨김 */
+                .window-3 { position: absolute; top: 2%; left: 5%; right: auto; width: 100%; height: 90%; z-index: 50; display: none; }
+                .sub_layout { position: absolute; bottom: 20%; left: 18%; z-index: 60; display: none; }
+                .window-4 { width: 75dvw; height: 18dvh; }
+
+                /* ====== 상태 클래스 ====== */
+                .container.show-win3 .window-3 { display: flex; }
+                .container.show-win4 .sub_layout { display: block; }
+
+                /* 가장 최근 누른 창을 위로 올리는 클래스 */
+                .z-top { z-index: 100 !important; }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="randomGlitchText" class="glitch-text-overlay">WAKE UP!</div>
+
+        <div class="container">
+            <div class="main_layout">
+                <div class="xp-window window-1">
+                    <div class="xp-titlebar">
+                        <div class="xp-title"></div>
+                        <div class="xp-controls">
+                            <button class="xp-control-btn minimize"><span>_</span></button>
+                            <button class="xp-control-btn maximize"><span>□</span></button>
+                            <button class="xp-control-btn close"><span>X</span></button>
+                        </div>
+                    </div>
+                    <div class="xp-body">
+                        <div class="wp1_date">D-123</div>
+                        <div class="wp1_profile"></div>
+                        <div class="wp1_content">텍스트 수정 텍스트 수정 수정 수정 수정 수정 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세</div>
+                    </div>
+                </div>
+
+                <div class="xp-window window-2">
+                    <div class="xp-titlebar">
+                        <div class="xp-title"></div>
+                        <div class="xp-controls">
+                            <button class="xp-control-btn minimize"><span>_</span></button>
+                            <button class="xp-control-btn maximize"><span>□</span></button>
+                            <button class="xp-control-btn close"><span>X</span></button>
+                        </div>
+                    </div>
+                    <div class="xp-body">
+                        <div class="wp2_search">
+                            <input type="text" class="search-input"/>
+                            <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                        <div class="wp2_road">
+                            <div class="road_item">
+                                <div class="road_img"></div>
+                                <div class="road_text">동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세</div>
+                            </div>
+                            <div class="road_item">
+                                <div class="road_img"></div>
+                                <div class="road_text">동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세</div>
+                            </div>
+                        </div>
+                        <div class="wp2_roadBar">
+                            <button class="xp-btn-small" style="width: 24px; padding: 2px;">+</button>
+                            <input type="text" class="wp2_input">
+                            <button class="xp-btn-small" style="padding: 2px 10px;">전송</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="xp-window window-3">
+                    <div class="xp-titlebar">
+                        <div class="xp-title"></div>
+                        <div class="xp-controls">
+                            <button class="xp-control-btn minimize"><span>_</span></button>
+                            <button class="xp-control-btn maximize"><span>□</span></button>
+                            <button class="xp-control-btn close"><span>X</span></button>
+                        </div>
+                    </div>
+                    <div class="xp-body">
+                        <div class="gallery_item"></div>
+                        <div class="gallery_item"></div>
+                        <div class="gallery_item"></div>
+                        <div class="gallery_item"></div>
+                        <div class="gallery_item"></div>
+                        <div class="gallery_item"></div>
+                        <div class="gallery_item"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sub_layout">
+                <div class="xp-window window-4">
+                    <div class="xp-titlebar">
+                        <div class="xp-title"></div>
+                        <div class="xp-controls">
+                            <button class="xp-control-btn minimize"><span>_</span></button>
+                            <button class="xp-control-btn maximize"><span>□</span></button>
+                            <button class="xp-control-btn close"><span>X</span></button>
+                        </div>
+                    </div>
+                    <div class="xp-body"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // 1. 글리치 텍스트 로직
+                const phrases = ["Wake Up!", "Who am I?", "I Love You.", "I See You.", "friend?", "Welcome!"];
+                const textElement = document.getElementById("randomGlitchText");
+                function changeText() {
+                    const randomIndex = Math.floor(Math.random() * phrases.length);
+                    textElement.innerText = phrases[randomIndex];
+                }
+                changeText();
+                setInterval(changeText, 20000);
+
+                // 2. 창 컨트롤 로직 (z-index 우선순위 로직)
+                const container = document.querySelector('.container');
+                const win3 = document.querySelector('.window-3');
+                const subLayout = document.querySelector('.sub_layout'); 
+
+                const minimizeBtns = document.querySelectorAll('.minimize');
+                const maximizeBtns = document.querySelectorAll('.maximize');
+                const closeBtns = document.querySelectorAll('.close');
+
+                // ㅡ (최소화): 3, 4번 창 닫기
+                minimizeBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        container.classList.remove('show-win3', 'show-win4');
+                        win3.classList.remove('z-top');
+                        subLayout.classList.remove('z-top');
+                    });
+                });
+
+                // ㅁ (최대화): 3번 창 띄우고 제일 위로 올림
+                maximizeBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        container.classList.add('show-win3');
+                        win3.classList.add('z-top');          
+                        subLayout.classList.remove('z-top');  
+                    });
+                });
+
+                // X (닫기): 4번 창 띄우고 제일 위로 올림
+                closeBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        container.classList.add('show-win4');
+                        subLayout.classList.add('z-top');     
+                        win3.classList.remove('z-top');       
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>

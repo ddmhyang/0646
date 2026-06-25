@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brain.exe Error Layout (Responsive & dvw/dvh)</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+    --win-gray: #9C9C9C; 
+    --win-dark-gray: #555555;
+    --win-light: #ffffff; 
+    --win-black: #000000;
+    --win-gray-title-dark: #333333;
+    --win-gray-title-mid-dark: #666666;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100dvh;
+    margin: 0;
+    font-family: 'MS Sans Serif', Tahoma, sans-serif;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+    -webkit-font-smoothing: none;
+    background: radial-gradient(circle at center, #2a2a2a 0%, #000000 80%);
+    filter: contrast(1.8) brightness(0.85);
+    box-shadow: 0 0 40px 40px rgba(0, 0, 0, 0.50) inset;
+    animation: crtGlitch 6s infinite;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('assets/images/background.png');
+    z-index: -2;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: grayscale(100%);
+}
+
+/* 스캔라인 효과 */
+body::after {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.04));
+    background-size: 100% 4px, 4px 100%;
+    z-index: 99999;
+    pointer-events: none;
+}
+
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 99998;
+    opacity: 0.05; /* 노이즈 강도 수정됨 */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+@keyframes crtGlitch {
+    0%, 95% { opacity: 0.95; filter: contrast(1.8) brightness(1.5); }
+    96% { opacity: 0.7; filter: contrast(2.5) brightness(0.6) saturate(0.2); }
+    97% { opacity: 0.9; filter: contrast(2.0) brightness(0.75) saturate(0.1); }
+    98% { opacity: 0.8; filter: contrast(2.8) brightness(0.5) saturate(0.3); }
+    100% { opacity: 0.95; filter: contrast(1.8) brightness(1.5); }
+}
+
+@keyframes popupGlitchText {
+    0% { opacity: 0; visibility: hidden; }
+    0.5% { opacity: 1; visibility: visible; }
+    20% { opacity: 1; visibility: visible; }
+    20.5% { opacity: 0; visibility: hidden; }
+    100% { opacity: 0; visibility: hidden; }
+}
+
+.container {
+    position: relative;
+    width: 75dvw;
+    height: 80dvh;
+}
+
+/* 핵심 수정 부분: Grid 제거하고 position: relative 적용 */
+.main_layout {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.sub_layout {
+    position: absolute;
+    bottom: 4dvh;
+    right: -4dvw;
+    z-index: 10;
+}
+
+/* 핵심 수정 부분: 각 창에 position absolute 와 크기/위치 지정 */
+.window-1 { 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(45% - 20px);
+    height: calc(25% - 20px);
+}
+
+.window-2 { 
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: calc(45% - 20px);
+    height: calc(75% - 20px);
+    min-height: 0; 
+}
+
+.window-3 { 
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: calc(55% - 20px);
+    height: 100%;
+    min-height: 0; 
+}
+
+.window-4 { width: 25dvw; height: 20dvh; }
+
+.xp-window {
+    background-color: var(--win-gray);
+    border: 2px solid;
+    border-color: var(--win-gray) var(--win-dark-gray) var(--win-dark-gray) var(--win-gray); 
+    box-shadow: 1px 1px 0 0 var(--win-black);
+    padding: 3px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    border-radius: 0;
+}
+
+.xp-window::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+    background-size: 2px 2px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.xp-titlebar {
+    background: linear-gradient(90deg, var(--win-gray-title-dark), var(--win-gray-title-mid-dark));
+    padding: 4px 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--win-light);
+    font-weight: bold;
+    font-size: 15px;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+    height: auto;
+    min-height: 18px;
+}
+
+.xp-title { color: var(--win-light); text-shadow: none; padding-left: 0; }
+.xp-controls { display: flex; gap: 2px; }
+
+.xp-control-btn {
+    width: 18px;
+    height: 16px;
+    background: var(--win-gray);
+    border: 1px solid;
+    border-color: var(--win-gray) var(--win-dark-gray) var(--win-dark-gray) var(--win-gray); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+}
+
+.xp-control-btn span {
+    color: var(--win-black);
+    font-family: 'MS Sans Serif', Tahoma, sans-serif;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.xp-control-btn.minimize span { transform: translateY(-4px); }
+.xp-control-btn.maximize span { font-size: 15px; transform: translateY(-1px); }
+.xp-control-btn.close span { font-size: 13px; }
+
+.xp-control-btn:active {
+    border-color: var(--win-dark-gray) var(--win-gray) var(--win-gray) var(--win-dark-gray);
+    padding-top: 1px;
+    padding-left: 1px;
+}
+
+.xp-body {
+    background-color: var(--win-gray); 
+    flex: 1;
+    border: 2px solid;
+    border-color: var(--win-dark-gray) var(--win-gray) var(--win-gray) var(--win-dark-gray); 
+    margin: 4px 0 0 0;
+    color: var(--win-black);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.wp1_date {
+    position: absolute;
+    left: 12px;
+    top: 7px;
+    font-family: "Freesentation";
+    font-weight: 100;
+    font-size: 12px;
+    color: #ff0000;
+}
+
+.wp1_profile {
+    position: absolute;
+    left: 12px;
+    top: 28.5px;
+    width: 73px;
+    height: 73px;
+    border: 1px solid #0a0a0a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+}
+
+
+.wp1_content {
+    position: absolute;
+    left: 98px;
+    top: 28.5px;
+    font-family: "Freesentation";
+    font-weight: 300;
+    font-size: 12px;
+    width: 76.5%;
+    color: #ff0000;
+}
+
+.window-2 .xp-body {
+    min-height: 0;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 0;
+}
+
+.wp2_search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    background: var(--win-gray); 
+    z-index: 2;
+}
+
+.search-input {
+    width: 90%;
+    background: var(--win-gray); 
+    border: 2px solid;
+    border-color: var(--win-dark-gray) var(--win-gray) var(--win-gray) var(--win-dark-gray); 
+    height: 20px;
+    padding: 0 5px;
+    outline: none;
+    font-family: 'MS Sans Serif', Tahoma, sans-serif;
+    color: var(--win-black);
+}
+
+.search-btn {
+    background: var(--win-gray);
+    border: 2px solid;
+    border-color: var(--win-gray) var(--win-dark-gray) var(--win-dark-gray) var(--win-gray); 
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: var(--win-black);
+    outline: none;
+}
+
+.search-btn:active {
+    border-color: var(--win-dark-gray) var(--win-gray) var(--win-gray) var(--win-dark-gray);
+    padding-top: 1px;
+    padding-left: 1px;
+}
+
+.wp2_road {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 15px;
+    z-index: 2;
+}
+
+.wp2_road::-webkit-scrollbar { width: 0px; height: 0px; }
+
+.road_item { display: flex; flex-direction: column; width: 100%; }
+
+.road_img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border: 1px solid var(--win-black);
+    background: #111;
+}
+
+.road_text {
+    width: 100%;
+    min-height: 40px;
+    border: 1px solid var(--win-black);
+    border-top: none;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: "Freesentation", sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    color: #ff0000;
+    background: var(--win-gray); 
+}
+
+.wp2_roadBar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+    background: var(--win-gray);
+    border-top: 2px solid;
+    border-color: var(--win-gray) transparent transparent transparent; 
+    z-index: 2;
+}
+
+.xp-btn-small {
+    background: var(--win-gray);
+    border: 2px solid;
+    border-color: var(--win-gray) var(--win-dark-gray) var(--win-dark-gray) var(--win-gray); 
+    padding: 2px 8px;
+    font-family: 'MS Sans Serif', Tahoma, sans-serif;
+    font-size: 12px;
+    color: var(--win-black);
+    cursor: pointer;
+    box-shadow: 1px 1px 0 var(--win-black);
+    outline: none;
+}
+
+.xp-btn-small:active {
+    border-color: var(--win-dark-gray) var(--win-gray) var(--win-gray) var(--win-dark-gray);
+    box-shadow: none;
+    transform: translate(1px, 1px);
+}
+
+.wp2_input {
+    flex: 1;
+    background: var(--win-gray); 
+    border: 2px solid;
+    border-color: var(--win-dark-gray) var(--win-gray) var(--win-gray) var(--win-dark-gray); 
+    height: 20px;
+    padding: 0 5px;
+    outline: none;
+    font-family: 'MS Sans Serif', Tahoma, sans-serif;
+    color: var(--win-black);
+}
+
+.window-3 .xp-body {
+    min-height: 0;
+    padding: 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow-y: auto;
+}
+
+.window-3 .xp-body::-webkit-scrollbar { width: 0px; height: 0px; }
+
+.gallery_item {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #111;
+    border: 1px solid var(--win-black);
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+.glitch-text-overlay {
+    position: absolute;
+    top: 50%;
+    left: 46%;
+    transform: translate(-50%, -50%);
+    z-index: 50;
+    color: yellow;
+    border: solid 1px #fafafa;
+    padding: 15px 40px 15px 48px;
+    background-color: rgba(0, 0, 0, 0.9);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    pointer-events: none;
+    text-shadow: 0 0 8px rgba(255, 255, 0, 0.7);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    animation: popupGlitchText 20s infinite linear;
+}
+
+/* 컨테이너 기준점 설정 (Grid 제거) */
+.main_layout {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Sub Layout (Window 4) 유지 */
+.sub_layout {
+    position: absolute;
+    bottom: 4dvh;
+    right: -4dvw;
+    z-index: 10;
+}
+
+/* =========================================
+   직접 지정한 절대 좌표 (Position Absolute)
+   Gap: 가로 40px, 세로 40px 강제 적용
+========================================= */
+
+/* 1. 상단 좌측 (창 1) */
+.window-1 { 
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: calc(45% - 20px); /* 전체의 45%에서 여백 절반 뺌 */
+    height: 25%;             /* 높이 25% 고정 */
+}
+
+/* 2. 하단 좌측 (창 2) */
+.window-2 { 
+    position: absolute;
+    left: 0;
+    top: calc(25% + 40px);    /* 창 1번 높이(25%) + Gap(40px) 위치부터 시작 */
+    width: calc(45% - 20px);  /* 창 1번과 가로 너비 동일 */
+    height: calc(75% - 40px); /* 남은 75% 높이에서 Gap(40px)만큼 뺌 */
+    min-height: 0; 
+}
+
+/* 3. 우측 전체 (창 3) */
+.window-3 { 
+    position: absolute;
+    /* 창 1, 2의 너비(45% - 20px) + Gap(40px) = 45% + 20px 지점부터 시작 강제! 좌측 쏠림 방지 */
+    left: calc(45% + 20px);   
+    top: 0;
+    width: calc(55% - 20px);  /* 전체 100% 중 남은 너비 */
+    height: 100%;             /* 전체 높이 사용 */
+    min-height: 0; 
+}
+
+/* Window 4 크기 */
+.window-4 { 
+    width: 25dvw; 
+    height: 20dvh; 
+}
+
+</style>
+</head>
+<body>
+
+    <div class="noise-overlay"></div>
+
+    <div class="container">
+
+        <div id="randomGlitchText" class="glitch-text-overlay">WAKE UP!</div>
+
+        <div class="main_layout">
+
+            <div class="xp-window window-1">
+                <div class="xp-titlebar">
+                    <div class="xp-title"></div>
+                </div>
+                <div class="xp-body">
+                    <div class="wp1_date">D-123</div>
+                    <div class="wp1_profile"></div>
+                    <div class="wp1_content">텍스트 수정 텍스트 수정 수정 수정 수정 수정 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세</div>
+                </div>
+            </div>
+
+            <div class="xp-window window-2">
+                <div class="xp-titlebar">
+                    <div class="xp-title"></div>
+                </div>
+                <div class="xp-body">
+                    <div class="wp2_search">
+                        <input type="text" class="search-input" />
+                        <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+
+                    <div class="wp2_road">
+                        <div class="road_item">
+                            <div class="road_img"></div>
+                            <div class="road_text">동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세</div>
+                        </div>
+                        <div class="road_item">
+                            <div class="road_img"></div>
+                            <div class="road_text">동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세</div>
+                        </div>
+                    </div>
+
+                    <div class="wp2_roadBar">
+                        <button class="xp-btn-small" style="width: 24px; padding: 2px;">+</button>
+                        <input type="text" class="wp2_input">
+                        <button class="xp-btn-small" style="padding: 2px 10px;">전송</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="xp-window window-3">
+                <div class="xp-titlebar">
+                    <div class="xp-title"></div>
+                    <div class="xp-controls">
+                        <button class="xp-control-btn minimize"><span>_</span></button>
+                        <button class="xp-control-btn maximize"><span>□</span></button>
+                        <button class="xp-control-btn close"><span>X</span></button>
+                    </div>
+                </div>
+                <div class="xp-body">
+                    <div class="gallery_item"></div>
+                    <div class="gallery_item"></div>
+                    <div class="gallery_item"></div>
+                    <div class="gallery_item"></div>
+                    <div class="gallery_item"></div>
+                    <div class="gallery_item"></div>
+                    <div class="gallery_item"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="sub_layout">
+            <div class="xp-window window-4">
+                <div class="xp-titlebar">
+                    <div class="xp-title"></div>
+                    <div class="xp-controls">
+                        <button class="xp-control-btn minimize"><span>_</span></button>
+                        <button class="xp-control-btn maximize"><span>□</span></button>
+                        <button class="xp-control-btn close"><span>X</span></button>
+                    </div>
+                </div>
+                <div class="xp-body">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const phrases = [
+                "Wake Up!", "Who am I?", "I Love You.",
+                "I See You.", "friend?", "Welcome!"
+            ];
+
+            const textElement = document.getElementById("randomGlitchText");
+
+            function changeText() {
+                const randomIndex = Math.floor(Math.random() * phrases.length);
+                textElement.innerText = phrases[randomIndex];
+            }
+
+            changeText();
+            setInterval(changeText, 20000);
+        });
+    </script>
+</body>
+</html>
