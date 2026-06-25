@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ELUCiD_QED</title>
+        <link rel="icon" href="assets/images/favicon.png">
+        <style>
+            @font-face {
+              font-family: 'Freesentation';
+              src: url('assets/fonts/Freesentation-1Thin.ttf') format('truetype');
+              font-weight: 100;
+              font-style: normal;
+            }
+            @font-face {
+              font-family: 'Freesentation';
+              src: url('assets/fonts/Freesentation-3Light.ttf') format('truetype');
+              font-weight: 300;
+              font-style: normal;
+            }
+            @font-face {
+              font-family: 'Freesentation';
+              src: url('assets/fonts/Freesentation-3Light.ttf') format('truetype');
+              font-weight: 500;
+              font-style: normal;
+            }
+            @font-face {
+              font-family: 'Freesentation';
+              src: url('assets/fonts/Freesentation-7Bold.ttf') format('truetype');
+              font-weight: 700;
+              font-style: normal;
+            }
+            @font-face {
+              font-family: 'Freesentation';
+              src: url('assets/fonts/Freesentation-9Black.ttf') format('truetype');
+              font-weight: 900;
+              font-style: normal;
+            }
+            @font-face {
+              font-family: 'Gloock';
+              src: url('assets/fonts/Gloock-Regular.ttf') format('truetype');
+              font-weight: 900;
+              font-style: normal;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body,
+            html {
+                width: 100dvw;
+                height: 100dvh;
+                overflow: hidden;
+                background: #fafafa;
+                font-family: 'Freesentation', 'Malgun Gothic', sans-serif;
+            }
+
+            .container {
+                overflow: hidden;
+                width: 1600px;
+                height: 900px;
+                background-color: #fafafa;
+                background: url("assets/images/background.png") repeat center center;
+                position: absolute;
+                top: 0;
+                left: 0;
+                cursor: pointer;
+            }
+
+            .background-deco{
+              width: 1600px;
+              height: 900px;
+              position: absolute;
+              top: 0;
+              left: 0;
+            }
+            
+            .background-math{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 1500px;
+                height: 900px;
+                aspect-ratio: 5/3;
+                opacity: 0.3;
+                background: url("assets/images/background_math.png") repeat center center;
+            }
+
+            .background_box1{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 1600px;
+                height: 90px;
+                background: #000;
+            }
+
+            .background_box2{
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 1600px;
+                height: 90px;
+                background: #000;
+            }
+
+            #content{
+              position: absolute;
+              width: 1600px;
+              height: 720px;
+              top:90px;
+              left: 50%;
+              transform: translateX(-50%);
+              /*720px인 이유: 900 - 90 - 90 =720. background_box1, box2를 뺸 값)
+              */
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+
+            footer{
+              position: absolute;
+              bottom: 10px;
+              right: 25px;
+              display: flex;
+              flex-direction: column;
+            }
+
+            .footerTxt1{
+              color: #FAFAFA;
+              text-align: right;
+              font-family: Gloock;
+              font-size: 32px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+              text-decoration: none;
+            }
+
+            .footerTxt2{
+              color: #FAFAFA;
+              font-family: Freesentation;
+              font-size: 12px;
+              font-style: normal;
+              font-weight: 250;
+              line-height: normal;
+              margin-bottom: 5px;
+            }
+
+            .sub_menu{
+              position: absolute;
+              bottom: 103px;
+              left: 20px;
+              width: 300px;
+              height: 91.185px;
+              aspect-ratio: 300.00/91.19;
+              background: url("assets/images/twinkle.png") repeat center center;
+              background-size: contain;
+            }
+
+            .side-nav{
+              position: absolute;
+              top: 145px;
+              left: 50%;
+              transform: translateX(-50%);
+              display: flex;
+              flex-direction: row;
+              gap: 68px;
+            }
+
+            #nav_main{
+              width: 92px;
+              height: 40px;
+              background: url("assets/images/nav1.png") repeat center center;
+              background-size: contain;
+            }
+
+            #nav_gallery_voicebank{
+              width: 168px;
+              height: 40px;
+              background: url("assets/images/nav2.png") repeat center center;
+              background-size: contain;
+            }
+
+            #nav_page_GUIDELINE{
+              width: 146px;
+              height: 40px;
+              background: url("assets/images/nav3.png") repeat center center;
+              background-size: contain;
+            }
+
+            #nav_page_credits{
+              width: 111px;
+              height: 35px;
+              background: url("assets/images/nav4.png") repeat center center;
+              background-size: contain;
+            }
+
+            #nav_askboard{
+              width: 130px;
+              height: 40px;
+              background: url("assets/images/nav5.png") repeat center center;
+              background-size: contain;
+            }
+
+            .gallery-box{
+              margin-top: 85px;
+              position: absolute;
+              width: 800px;
+              height: 450px;
+              display: flex;
+              flex-direction: row;
+              gap: 40px;
+              overflow-y: hidden;
+              overflow-x: auto;
+            }
+
+            .gallery-box::-webkit-scrollbar{
+              width: 0;
+              height: 0;
+            }
+
+            .gallery-item {
+              width: 200px;
+              height: 450px;
+              flex-shrink: 0;
+              
+              /* 1. 기본 배경색 설정 */
+              background-color: #1A1A1A; 
+              
+              /* 2. 그라데이션 마스크와 캐릭터 이미지를 멀티 배경으로 등록 */
+              /* [첫번째 배경]: 대각선 그라데이션 (처음엔 완전히 투명해서 이미지를 가림) */
+              /* [두번째 배경]: 띄우고 싶은 캐릭터 전신 이미지 */
+              background-image: 
+                linear-gradient(135deg, rgba(26,26,26,0) 40%, rgba(26,26,26,1) 60%), 
+                url("https://ny0217.dothome.co.kr/uploads/gallery/img-68e3c897a1932.png"); /* 👈 여기에 캐릭터 전신 이미지 경로 넣기 */
+
+              /* 3. 배경 크기 설정 */
+              /* 그라데이션을 부모 너비의 3배(300%)로 크게 늘려서 대각선 경계선을 만듭니다 */
+              background-size: 300% 100%, cover;
+              
+              /* 4. 시작 위치 설정 (처음엔 그라데이션의 어두운 부분이 이미지를 완전히 덮도록 우측 배치) */
+              background-position: 100% 0, center center;
+              background-repeat: no-repeat;
+
+              /* 5. 부드러운 전환을 위한 transition 효과 */
+              transition: background-position 0.6s ease-in-out;
+            }
+
+            /* 🔥 마우스를 올렸을 때 (Hover) */
+            .gallery-item:hover {
+              /* 배경 위치를 좌측(0%)으로 당기면, 투명한 영역이 들어오면서 좌측 상단부터 이미지가 스르륵 드러납니다 */
+              background-position: 0% 0, center center;
+            }
+            @media (max-width: 900px) {
+              .container {
+                  width: 720px;
+                  height: 1280px;
+              }
+            }
+
+            .logo{
+              position: absolute;
+              top: 118px;
+              left: 30px;
+              width: 250px;
+              height: 68px;
+              aspect-ratio: 125/34;
+              background: url("assets/images/logo.png") repeat center center;
+              background-size: contain;
+            }
+
+
+            @media (max-width: 900px) {
+              .container {
+                  width: 720px;
+                  height: 1280px;
+              }
+
+              .background-deco{
+                  width: 720px;
+                  height: 1280px;
+              }
+              
+              .background-math{
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 1833px;
+                  height: 1100px;
+                  aspect-ratio: 1828/1097;
+                  opacity: 0.3;
+                  background: url("assets/images/background_math.png") repeat center center;
+              }
+
+              #content{
+                position: absolute;
+                width: 720px;
+                height: 1100px;
+                top:90px;
+                left: 50%;
+                transform: translateX(-50%);
+                /*1100px인 이유: 1280 - 90 - 90 =1100. background_box1, box2를 뺸 값)
+                */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              }
+
+              .sub_menu{
+                position: absolute;
+                bottom: 103px;
+                left: 20px;
+                width: 300px;
+                height: 41.945px;
+                aspect-ratio: 329/46;
+                background: url("assets/images/twinkleM.png") repeat center center;
+                background-size: contain;
+              }
+
+              .side-nav{
+                position: absolute;
+                top: 145px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                flex-direction: row;
+                gap: 25px;
+              }
+
+              #nav_main{
+                width: 78px;
+                height: 31px;
+              }
+
+              #nav_gallery_voicebank{
+                width: 134px;
+                height: 32px;
+              }
+
+              #nav_page_GUIDELINE{
+                width: 115px;
+                height: 32px;
+              }
+
+              #nav_page_credits{
+                width: 95px;
+                height: 32px;
+              }
+
+              #nav_askboard{
+                width: 103px;
+                height: 32px;
+                background: url("assets/images/nav5.png") repeat center center;
+                background-size: contain;
+              }
+
+
+              .gallery-box{
+                margin-top: 10px;
+              width: 550px;
+              height: 600px;
+            }
+
+            .gallery-item {
+              height: 600px;
+            }
+
+              .logo{
+                position: absolute;
+                top: auto;
+                left: auto;
+                bottom: 105px;
+                right: 15px;
+                width: 250px;
+                height: 68px;
+                aspect-ratio: 125/34;
+                background: url("assets/images/logo.png") repeat center center;
+                background-size: contain;
+              }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="layout">
+              <div class="background-deco">
+                <div class="background-math"></div>
+                <div class="background_box1"></div>
+                <div class="background_box2"></div>
+                <footer>
+                  <a class="footerTxt1" href="https://x.com/ELUCiD_QED ">X</a>
+                  <a class="footerTxt2">ⓒ 2026 ELUCiD_QED.  All rights reserved. ⓒ Created by d_dmhyang </a>
+                </footer>
+                <div class="background_twinkle"></div>
+              </div>
+              <main id="content">
+                <div class="gallery-box">
+                  <div class="gallery-item"></div>
+                  <div class="gallery-item"></div>
+                  <div class="gallery-item"></div>
+                  <div class="gallery-item"></div>
+                </div>
+              </main>
+
+              <div class="logo"></div>
+
+              <nav class="side-nav">
+                <a href="#/" id="nav_main" class="nav-item" data-route=""></a>
+                <a href="#/gallery_voicebank" id="nav_gallery_voicebank" class="nav-item" data-route="gallery_voicebank"></a>
+                <a href="#/page_GUIDELINE" id="nav_page_GUIDELINE" class="nav-item" data-route="page_GUIDELINE"></a>
+                <a href="#/page_credits" id="nav_page_credits" class="nav-item" data-route="page_credits"></a>
+                <a href="#/askboard" id="nav_askboard" class="nav-item" data-route="askboard"></a>
+              </nav>
+              
+              <div class="sub_menu">
+                <?php if (isset($_SESSION['admin']) || isset($_SESSION['user'])): ?>
+                  <button id="btn_logout" class="btn_auth"></button>
+                <?php else: ?>
+                  <button id="btn_login" class="btn_auth" onclick="location.hash='#/login'"></button>
+                <?php endif; ?>
+              </div>
+
+            </div>
+        </div>
+    </body>
+</html>
