@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>냐냐냥</title>
+        <link rel="icon" href="assets/images/logo.png">
+        <style>
+            /*
+    @font-face {
+      font-family: 'Freesentation';
+      src: url('assets/fonts/Freesentation-1Thin.ttf') format('truetype');
+      font-weight: 100;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Freesentation';
+      src: url('assets/fonts/Freesentation-3Light.ttf') format('truetype');
+      font-weight: 300;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Freesentation';
+      src: url('assets/fonts/Freesentation-3Light.ttf') format('truetype');
+      font-weight: 500;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Freesentation';
+      src: url('assets/fonts/Freesentation-7Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Freesentation';
+      src: url('assets/fonts/Freesentation-9Black.ttf') format('truetype');
+      font-weight: 900;
+      font-style: normal;
+    }*/
+            @font-face {
+              font-family: 'Luckiest Guy';
+              src: url('assets/fonts/LuckiestGuy-Regular.ttf') format('truetype');
+              font-weight: 900;
+              font-style: normal;
+            }
+            @font-face {
+              font-family: 'Love Ya Like A Sister';
+              src: url('assets/fonts/LoveYaLikeASister-Regular.ttf') format('truetype');
+              font-weight: 900;
+              font-style: normal;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body,
+            html {
+                width: 100dvw;
+                height: 100dvh;
+                overflow: hidden;
+                background: #fafafa;
+                font-family: 'Freesentation', 'Malgun Gothic', sans-serif;
+            }
+
+            .container {
+                overflow: hidden;
+                width: 1600px;
+                height: 900px;
+                background-color: #fafafa;
+                background: url("assets/images/background.png") repeat center center;
+                position: absolute;
+                top: 0;
+                left: 0;
+                cursor: pointer;
+            }
+
+            .bd1 {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 221px;
+                height: 241px;
+                aspect-ratio: 221/241;
+                background: url("assets/images/deco1.png") no-repeat center center;
+            }
+
+            .bd2 {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 272px;
+                height: 257px;
+                aspect-ratio: 127/120;
+                background: url("assets/images/deco2.png") no-repeat center center;
+            }
+
+            .bd3 {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 257px;
+                height: 416px;
+                aspect-ratio: 118/191;
+                background: url("assets/images/deco3.png") no-repeat center center;
+            }
+
+            .bd4 {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 258px;
+                height: 268px;
+                aspect-ratio: 103/107;
+                background: url("assets/images/deco4.png") no-repeat center center;
+            }
+
+            .bd5 {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 788px;
+                height: 788px;
+                aspect-ratio: 1/1;
+                background: url("assets/images/deco5.png") no-repeat center center;
+            }
+
+            .bd6 {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 788px;
+                height: 788px;
+                aspect-ratio: 1/1;
+                background: url("assets/images/deco6.png") no-repeat center center;
+            }
+
+            #content{
+              position: absolute;
+              top:50%;
+              left: 365px;
+              transform: translateY(-50%);
+              width: 1000px;
+              height: 620px;
+              background: #fafafa;
+              box-shadow: 4px 4px 0 0 #FF89B8;
+            }
+
+            .side-nav{
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              left: 123px;
+              display: flex;
+              flex-direction: column;
+              gap: 80px;
+            }
+
+            .nav-item{
+              width: 172px;
+              height: 60px;
+              color: #fafafa;
+              text-align: center;
+              text-shadow: 4px 4px 1px #FF87BB;
+              font-family: "Luckiest Guy";
+              font-size: 32px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+              text-decoration: none;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+
+            #nav_main{
+              background: #FFEAF3;
+              box-shadow: 4px 4px 0 0 #FF87BB;
+            }
+
+            #nav_gallery_Kitsch{
+              background: #FFFACE;
+              box-shadow: 4px 4px 0 0 #FF87BB;
+            }
+
+            #nav_todo{
+              background: #D6F3FF;
+              box-shadow: 4px 4px 0 0 #FF87BB;
+            }
+
+            .sub_menu{
+              position: absolute;
+              top:26px;
+              right: 48px;
+              width: 106px;
+              height: 97px;
+              background: url("assets/images/login_btn.png") no-repeat center center;
+              background-size: contain;
+            }
+
+            .music_layout{
+              position: absolute;
+              bottom: 40px;
+              right: 60px;
+              width: 346px;
+              height: 250px;
+            }
+
+            .music_box{
+              width: 346px;
+              height: 230px;
+              background: #FFF9FC;
+              box-shadow: 4px 4px 0 0 #FF87BB;
+              position: absolute;
+              top: 20px;
+            }
+
+            .music_tape{
+              position: absolute;
+              top:0;
+              left: 50%;
+              transform: translateX(-50%);
+              width: 100px;
+              height: 40px;
+              background: rgba(248, 216, 255, 0.25);
+              box-shadow: 4px 4px 0 0 #FFBBD8;
+            }
+
+            #music_title{
+              margin-top: 71px;
+              display: flex;
+              justify-content: center;
+              color: #FF87BB;
+              text-align: center;
+              font-family: "Love Ya Like A Sister";
+              font-size: 32px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+              text-decoration-line: underline;
+              text-decoration-style: solid;
+              text-decoration-skip-ink: auto;
+              text-decoration-thickness: auto;
+              text-underline-offset: auto;
+              text-underline-position: from-font;
+            }
+            .music_time{
+              margin-top: 33px;
+              display: flex;
+              justify-content: center;
+            }
+
+            .mt_bar{
+              width: 250px;
+              height: 6px;
+              background: #FF89B8;
+              border-radius:60px;
+            }
+
+            .mt_dot{
+              border-radius: 15px;
+              width: 15px;
+              height: 15px;
+              background: #FF87BB;
+            }
+
+            .music_theTime, .music_remainTime{
+              position: absolute;
+              color: #FF87BB;
+              text-align: center;
+              font-family: "Love Ya Like A Sister";
+              font-size: 12px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+            }
+
+            .music_theTime{
+              left: 45px;
+              bottom: 58px;
+            }
+
+            .music_remainTime{
+              right: 45px;
+              bottom: 58px;
+            }
+
+            .music_btn{
+              margin-top: 25px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-direction: row;
+              gap: 22px;
+            }
+            
+            #bgm-play{
+              margin-left: 4px;
+            }
+
+            @media (max-width: 900px) {
+              .container {
+                  width: 720px;
+                  height: 1280px;
+              }
+              .bd1{
+                width: 161px;
+                height: 175px;
+                aspect-ratio: 23/25;
+                background-size: contain;
+              }
+
+              .bd2{
+                width: 186px;
+                height: 302px;
+                aspect-ratio: 85/138;
+                background-size: contain;
+              }
+
+              .bd3{
+                width: 198px;
+                height: 187px;
+                aspect-ratio: 18/17;
+                background-size: contain;
+              }
+
+              .bd4{
+                width: 187px;
+                height: 195px;
+                aspect-ratio: 70/73;
+                background-size: contain;
+              }
+
+              #content{
+                width: 600px;
+                height: 950px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+              }
+
+              .side-nav{
+                top: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                flex-direction: row;
+                gap:55px;
+              }
+
+              .nav-item{
+                width: 150px;
+                height: 60px;
+                font-size: 28px;
+              }
+
+              .sub_menu{
+                width: 70px;
+                height: 70px;
+                background: url("assets/images/login_btnM.png") no-repeat center center;
+                background-size: contain;
+              }
+
+              .music_layout{
+                right: 30px;
+                bottom: 20px;
+              }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="layout">
+              <div class="background-deco">
+                  <div class="bd1"></div>
+                  <div class="bd2"></div>
+                  <div class="bd3"></div>
+                  <div class="bd4"></div>
+                  <div class="bd5"></div>
+                  <div class="bd6"></div>
+              </div>
+              <main id="content"></main>
+
+              <nav class="side-nav">
+                <a href="#/" id="nav_main" class="nav-item" data-route="">Main</a>
+                <a href="#/gallery_Kitsch" id="nav_gallery_Kitsch" class="nav-item" data-route="gallery_Kitsch">ART</a>
+                <a href="#/todo" id="nav_todo" class="nav-item" data-route="todo">To-Do</a>
+              </nav>
+              
+              <div class="sub_menu">
+                <?php if (isset($_SESSION['admin']) || isset($_SESSION['user'])): ?>
+                  <button id="btn_logout" class="btn_auth"></button>
+                <?php else: ?>
+                  <button id="btn_login" class="btn_auth" onclick="location.hash='#/login'"></button>
+                <?php endif; ?>
+              </div>
+
+              <div class="music_layout">
+                <div class="music_box">
+                  <a id="music_title"><u>BGM</u></a>
+                  <div class="music_time">
+                    <div class="mt_bar"></div>
+                    <div class="mt_dot"></div>
+                    <a class="music_theTime">0:00</a>
+                    <a class="music_remainTime">-3:00</a>
+                  </div>
+                  <div class="music_btn">
+                    <svg id="bgm-prev" xmlns="http://www.w3.org/2000/svg" width="37" height="25" viewBox="0 0 37 25" fill="none">
+                      <path d="M13.5 11.634C12.8333 12.0189 12.8333 12.9811 13.5 13.366L29.25 22.4593C29.9167 22.8442 30.75 22.3631 30.75 21.5933L30.75 3.40673C30.75 2.63693 29.9167 2.15581 29.25 2.54071L13.5 11.634Z" fill="#FF89B8"/>
+                      <path d="M1.5 11.634C0.833334 12.0189 0.833334 12.9811 1.5 13.366L17.25 22.4593C17.9167 22.8442 18.75 22.3631 18.75 21.5933L18.75 3.40673C18.75 2.63693 17.9167 2.15581 17.25 2.54071L1.5 11.634Z" fill="#FF89B8"/>
+                    </svg>
+
+                    <svg id="bgm-play" xmlns="http://www.w3.org/2000/svg" width="18" height="21" viewBox="0 0 18 21" fill="none">
+                      <path d="M17.25 9.2287C17.9167 9.6136 17.9167 10.5759 17.25 10.9608L1.5 20.054C0.833333 20.4389 -9.77521e-07 19.9578 -9.43872e-07 19.188L-1.48913e-07 1.00146C-1.15264e-07 0.231658 0.833334 -0.249466 1.5 0.135434L17.25 9.2287Z" fill="#FF89B8"/>
+                    </svg>
+
+                    <svg id="bgm-next" xmlns="http://www.w3.org/2000/svg" width="37" height="25" viewBox="0 0 37 25" fill="none">
+                      <path d="M23.5 11.634C24.1667 12.0189 24.1667 12.9811 23.5 13.366L7.75 22.4593C7.08333 22.8442 6.25 22.3631 6.25 21.5933L6.25 3.40673C6.25 2.63693 7.08333 2.15581 7.75 2.54071L23.5 11.634Z" fill="#FF89B8"/>
+                      <path d="M35.5 11.634C36.1667 12.0189 36.1667 12.9811 35.5 13.366L19.75 22.4593C19.0833 22.8442 18.25 22.3631 18.25 21.5933L18.25 3.40673C18.25 2.63693 19.0833 2.15581 19.75 2.54071L35.5 11.634Z" fill="#FF89B8"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="music_tape"></div>
+              </div>
+            </div>
+        </div>
+    </body>
+</html>
